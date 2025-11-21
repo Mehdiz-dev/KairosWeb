@@ -1,0 +1,404 @@
+/* =========================================================
+      KAIROS — styles.css (refactor)
+      Structure mobile-first, breakpoints groupés
+      0) Variables
+      1) Reset & Base
+      2) Layout (container, main)
+      3) Header (logo, banner)
+      4) Menu mobile (burger + side-menu)
+      5) Boutons génériques
+      6) Topbars (tablette & desktop)
+      7) News (grille & cartes)
+      8) Modal Article
+      9) Footer
+      10) Auth & Userbox
+      11) Utilitaires (erreurs)
+      12) Login      
+      13) Breakpoints (>=768, >=1024, >=1440, >=1800)
+   ========================================================= */
+
+
+/* ========== 0) VARIABLES =================================================== */
+:root{
+  --red:#D72A2A;
+  --light-green:#3E7D3A;
+  --green:#1A3818;
+  --dark:#130A0B;
+  --paper:#E8E0A3;
+  --light-text:#F5F9EC;
+  --comment:#B99367;
+  --discord:#7289da;
+  --radius:12px;
+
+  /* News — variables responsive (valeurs par défaut mobile) */
+  --cardBgOpacity: 1;      /* opacité papier des cartes sur mobile */
+  --card-ratio: 16/10;     /* ratio d’image par défaut (mobile/tablette) */
+  --img-inset: 18px;       /* marge interne horizontale de l’image dans la carte */
+}
+
+
+/* ========== 1) RESET & BASE =============================================== */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body{
+  margin:0;
+  font-family: system-ui, Arial, sans-serif;
+  color: var(--light-text);
+  background: var(--dark);
+  min-height: 100dvh;
+  display:flex; flex-direction:column;
+}
+main{ flex:1; }
+
+
+/* ========== 2) LAYOUT ====================================================== */
+.container{ padding:16px; }
+
+
+/* ========== 3) HEADER ====================================================== */
+.site-header{ text-align:center; position:relative; }
+.logo{ width:140px; margin:12px auto 8px; display:block; }
+.banner{ width:100%; display:block; }
+
+
+/* ========== 4) MENU MOBILE (BURGER + SIDE-MENU) ============================ */
+.dots-btn{
+  position:fixed; top:14px; left:14px; z-index:1100;
+  display:flex; gap:6px; background:transparent; border:0; cursor:pointer; padding:6px;
+}
+.dots-btn span{ width:8px; height:8px; border-radius:50%; background:var(--red); }
+
+.side-menu{ position:fixed; inset:0; z-index:1000; pointer-events:none; }
+.menu-content{
+  position:absolute; top:0; left:0; height:100%; width:78%;
+  background:var(--green); padding:20px; transform:translateX(-100%);
+  transition:transform .25s ease;
+  display:flex; flex-direction:column; gap:18px; pointer-events:auto;
+  z-index:2;
+}
+.menu-backdrop{
+  position:absolute; inset:0; background:rgba(0,0,0,.35);
+  opacity:0; transition:opacity .25s ease; border:0; cursor:pointer; z-index:1;
+}
+.side-menu.open .menu-content{ transform:none; }
+.side-menu.open .menu-backdrop{ opacity:1; pointer-events:auto; }
+
+.menu-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.menu-logo{
+  width:90px; height:90px; border-radius:50%; object-fit:cover;
+  display:block; margin:0 auto 20px;
+}
+
+.menu-links{ display:flex; flex-direction:column; gap:10px; }
+.menu-links a{
+  color:var(--light-text); text-decoration:none; font-size:16px;
+  display:flex; align-items:center; gap:8px;
+}
+.menu-links a:hover {color: var(--red);}
+.icon-sm{ width:18px; height:18px; }
+
+
+/* ========== 5) BOUTONS GÉNÉRIQUES ========================================= */
+.btn{
+  width:100%; padding:12px 14px; border:0; border-radius:10px;
+  font-weight:600; font-size:16px; cursor:pointer;
+}
+.btn .icon{ width:20px; height:20px; vertical-align:-4px; margin-right:8px; }
+.btn-discord{ background:var(--discord); color:var(--light-text); }
+.btn-staff{ background:var(--red); color:var(--light-text); }
+.btn-logout{ margin-top:auto; background:#b22727; color:var(--light-text); }
+
+.status-btn{
+  display:block; width:100%; text-align:center;
+  padding:10px 12px; background:var(--light-green); color:var(--light-text);
+  border-radius:var(--radius); text-decoration:none; font-weight:700;
+  margin:10px 0 16px; font-size:15px;
+}
+
+
+/* ========== 6) TOPBARS (TABLETTE & DESKTOP) =============================== */
+.topbar{ display:none; }
+.topbar .btn{ width:auto; padding:10px 14px; }
+.topbar .links{ display:flex; align-items:center; gap:22px; white-space:nowrap; }
+.topbar .links a{ color:var(--light-text); text-decoration:none; font-size:19px; font-weight: 450; }
+.topbar .links a:hover {color: var(--light-green);}
+.tb-right.column{ display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+
+
+/* ========== 7) NEWS (GRILLE & CARTES) ===================================== */
+/* Grille */
+#newsList{
+  display:grid;
+  grid-template-columns: 1fr;      /* mobile: 1 colonne */
+  gap:16px;
+  padding:8px 0;
+}
+
+/* Carte (fond avec opacité, hover/focus, etc.) */
+.card{
+  position:relative;
+  border-radius: var(--radius);
+  overflow:hidden;
+  cursor:pointer;
+  transition: transform .06s ease, box-shadow .06s ease;
+}
+.card::before{
+  content:"";
+  position:absolute; inset:0;
+  background: var(--paper);
+  opacity: var(--cardBgOpacity);
+  border-radius: inherit;
+  z-index:0;
+}
+.card > *{ position:relative; z-index:1; }
+
+.card:hover{ transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,.25); }
+.card:focus-visible{ outline:3px solid #2f7e43; outline-offset:2px; }
+
+.card-title{
+  margin:8px 12px 6px;
+  font-size:16px; line-height:1.2; font-weight:800; color:var(--dark);
+}
+
+/* Image centrée, plus petite que la carte, ratio conservé */
+.card-img{
+  width: calc(100% - (var(--img-inset) * 2));
+  margin: 0 auto 8px;
+  aspect-ratio: var(--card-ratio);
+  overflow:hidden;
+  border-radius:12px;
+}
+.card-img img{
+  width:100%; height:100%; object-fit:cover; object-position:center;
+  display:block;
+}
+
+/* Extrait (masqué mobile, clamp tablette/desktop) */
+.card-excerpt{
+  display:none;
+  margin:0 12px 12px;
+  font-size:14px; color:#222;
+}
+
+/* (ancienne structure non utilisée retirée pour clarté)
+   ex: .card-body, .thumb, .comment-input ... */
+
+
+/* ========== 8) MODAL ARTICLE ============================================== */
+.modal{ position:fixed; inset:0; display:none; z-index:1200; }
+.modal.open{ display:block; }
+
+.modal-backdrop{
+  position:absolute; inset:0; background:rgba(0,0,0,.6);
+  border:0; cursor:pointer; z-index:1;
+}
+.modal-content{
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%, -50%);
+  width:85vw; max-width:1100px; max-height:88vh; overflow:auto;
+  background:var(--paper); color:var(--dark);
+  border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,.45);
+  padding:16px 18px 22px; z-index:2;
+}
+.modal-close{
+  position:absolute; top:8px; right:10px;
+  background:#b22727; color:#fff; border:0; border-radius:9999px;
+  width:34px; height:34px; font-size:20px; cursor:pointer;
+}
+
+.post-title{ margin:4px 0 6px; font-size:22px; line-height:1.2; font-weight:800; }
+.post-meta{ margin:0 0 10px; font-size:13px; color:#333; }
+.post-cover{ width:100%; max-height:360px; object-fit:cover; border-radius:10px; margin:8px 0 14px; }
+.post-body{ font-size:16px; line-height:1.55; color:#222; }
+.post-body p{ margin:0 0 12px; }
+.post-body img{ max-width:100%; height:auto; border-radius:8px; }
+/* Éléments génériques pour toutes les modales (galerie, défis, etc.) */
+.modal-title{ margin:0; }
+.modal-meta{ opacity:.8; margin-top:6px; }
+
+/* Image pleine dans les modales (bordures & dimension) */
+.modal-image{
+  max-width:100%;
+  height:auto;
+  border-radius:12px;
+  display:block;
+  margin:0 auto 10px;
+}
+
+
+
+/* ========== 9) FOOTER ====================================================== */
+.site-footer{ position:relative; width:100%; overflow:hidden; min-height: 220px; }
+.footer-bg{
+  width:100%; height: auto; display:block;
+  aspect-ratio: 16 / 9;         /* réserve la place dans le layout */
+  object-fit: cover;
+  border-top-left-radius:18px; border-top-right-radius:18px;
+  position:relative; z-index:0;
+}
+.footer-content{
+  position:absolute; inset:0; padding:16px;
+  display:flex; justify-content:space-between; align-items:flex-end; gap:16px;
+  z-index:1;
+}
+.footer-left{
+  list-style:none; margin:0; padding-left:.5rem;
+  display:flex; flex-direction:column; gap:6px;
+}
+.footer-left a{ color:var(--light-text); text-decoration:none; font-weight:600; }
+.footer-right{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; padding-right:.5rem; }
+.footer-title{ font-weight:700; }
+.socials{ display:flex; align-items:center; gap:10px; }
+.socials .icon{ width:25px; height:25px; display:block; }
+
+
+/* ========== 10) AUTH & USERBOX ============================================ */
+.auth-user{ display:none !important; }      /* invité par défaut */
+.auth-guest{ display:inline-block; }        /* invité par défaut */
+/* Bouton Admin visible seulement pour les staff connectés */
+.auth-staff{ display:none !important; }
+
+body.is-auth .auth-guest{ display:none !important; }
+body.is-auth .auth-user{ display:inline-block !important; }
+body.is-staff .auth-staff{ display:inline-block !important; }
+
+.btn-admin{ background: var(--light-green); color: var(--light-text); }
+
+.userbox{
+  display:flex; align-items:center; gap:8px;
+  background:rgba(0,0,0,.25);
+  padding:6px 10px; border-radius:var(--radius);
+}
+.user-avatar{ width:38px; height:38px; border-radius:50%; object-fit:cover; }
+.user-texts{ display:flex; flex-direction:column; line-height:1.1; }
+.user-name{ font-weight:600; font-size:15px; }
+.user-nick{ font-size:13px; opacity:.8; }
+/* Avatar plus grand dans le menu latéral (mobile/tablette) */
+.side-menu .user-avatar{
+  width:48px; height:48px;
+  border-radius:50%;
+  object-fit:cover;
+}
+/* Avatar masqué par défaut, visible une fois authentifié (body.is-auth posé par script) */
+.js-userAvatar{ display:none; }
+body.is-auth .js-userAvatar{ display:block; }
+
+
+
+/* ========== 11) UTILITAIRES =============================================== */
+.error-banner{
+  background:#f3dede; color:#791c1c; border:1px solid #e0b9b9;
+  padding:10px 12px; border-radius:10px; margin:10px 0; font-size:14px;
+}
+/* Utilitaire d’affichage */
+.hidden{ display:none !important; }
+
+/* Titre de page */
+.page-title{ margin:0 0 12px; }
+
+
+/* ========== 12) LOGIN ====================================================== */
+.login-wrap{max-width:420px;margin:40px auto;padding:20px;background:rgba(0,0,0,0.25);border-radius:12px}
+.login-wrap h1{margin:0 0 12px}
+.login-wrap label{display:block;margin:10px 0 6px}
+.login-wrap input{width:100%;padding:10px;border-radius:8px;border:0}
+.login-wrap button{margin-top:12px}
+#err{color:#ffb4b4;margin-top:10px;min-height:1.2em}
+
+
+/* ========== 13) BREAKPOINTS =============================================== */
+
+/* >=768px — TABLETTE */
+@media (min-width:768px){
+  /* Neutralise le menu mobile */
+  .dots-btn{ display:none; }
+  .side-menu{ display:none !important; }
+  .banner{ display:none; }
+
+  /* Header fond (maquette tablette) */
+  .site-header{
+    background-image:url('/assets/banniereapoattend.jpg');
+    background-size:cover; background-position:center;
+    padding-bottom:10px;
+  }
+
+  /* Topbar tablette */
+  .topbar-tablet{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center; gap:20px;
+    max-width:1024px; margin:0 auto; padding:12px 20px;
+  }
+  .topbar-tablet .tb-left{ justify-self:start; }
+  .topbar-tablet .tb-center{ justify-self:center; }
+  .topbar-tablet .tb-right{ display:flex; align-items:center; gap:10px; justify-self:end; flex-wrap:nowrap; }
+
+  /* Container & grille news */
+  .container{ max-width:980px; margin:0 auto; padding:18px 24px; }
+
+  /* News */
+  #newsList{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .card-excerpt{
+    display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden;
+  }
+
+  /* Image un peu plus petite dans la carte */
+  :root{ --img-inset:22px; }
+
+  .site-footer{ min-height: 260px; }
+
+}
+
+/* >=1024px — DESKTOP */
+@media (min-width:1024px){
+  /* Header sans bannière ; fond global (fixe) */
+  .site-header{ background-image:none; }
+  .topbar-tablet{ display:none; }
+
+  .topbar-desktop{
+    display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:28px;
+    max-width:1024px; margin:0 auto; padding:12px 20px;
+  }
+  .topbar-desktop .links a{ font-size:20px; }
+  .topbar-desktop .tb-left{ justify-self:start; }
+  .topbar-desktop .tb-center{ justify-self:center; }
+  .topbar-desktop .tb-right{ display:flex; flex-direction:column; align-items:flex-end; gap:10px; justify-self:end; }
+
+  .logo{ width:180px; }
+  .container{ max-width:1024px; padding:18px 24px; }
+
+  /* Fond */
+  body{
+    background-color:var(--dark);
+    background-image:url('/assets/fonddesktop.png');
+    background-position:center; background-size:cover;
+    background-repeat:no-repeat; background-attachment:fixed;
+  }
+
+  /* News: 3 colonnes, opacité & ratio desktop */
+  #newsList{
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    --cardBgOpacity: .75;
+    --card-ratio: 16/9;
+  }
+
+  /* image un peu plus petite */
+  :root{ --img-inset:26px; }
+    .site-footer{ min-height: auto; overflow: visible; } /*Pour éviter espace vide et voir les liens*/
+    .footer-bg{display: none;}
+    .footer-content{ position:static; padding:16px 0; } /* remet le contenu dans le flux */
+
+}
+
+/* >=1440px — DESKTOP LARGE */
+@media (min-width:1440px){
+  #newsList{ grid-template-columns: repeat(4, minmax(0,1fr)); }
+  :root{ --img-inset:28px; }
+}
+
+/* >=1800px — DESKTOP XL */
+@media (min-width:1800px){
+  #newsList{ grid-template-columns: repeat(5, minmax(0,1fr)); }
+  :root{ --img-inset:32px; }
+}
+

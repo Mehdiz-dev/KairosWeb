@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kairos — Staff Login</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="module" src="./login.js" defer></script>
+  <script type="module" src="./script.js" defer></script>
+
+
+</head>
+<body>
+    <button class="dots-btn" id="dotsBtn" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+
+  <header class="site-header">
+    <a href="./index.html" aria-label="Accueil Kairos"><img src="../assets/logokairoscomplet.png" class="logo" alt="Kairos" /></a>
+    <img src="../assets/banniereapoattend.jpg" class="banner" alt="Bannière" />
+
+    <!-- Menu Burger-->
+    <aside class="side-menu" id="sideMenu" aria-hidden="true">
+      <div class="menu-content">
+        <div class="menu-header">
+          <img src="../assets/logokairospetit.png" alt="Kairos" class="menu-logo" />
+        </div>
+        <div class="userbox" data-auth-only>
+          <img class="user-avatar js-userAvatar" alt="Avatar">
+          <span class="user-name js-userName"></span>
+          <span class="user-nick js-userNick"></span>
+        </div>
+
+
+
+        <nav class="menu-links">
+          <a href="./playlists.html">• Playlists</a>
+          <a href="./defis.html">• Défis des capitaines</a>
+          <a href="#">• Statut serveur</a>
+          <a href="https://kairos-4.gitbook.io/kairos" target="_blank" rel="noopener noreferrer">• Gitbook</a>
+          <a href="./galerie.html">• Galerie</a>
+        </nav>
+
+        <!-- Connecté -->
+        <button class="btn btn-logout auth-user">Se déconnecter</button>
+      </div>
+      <button class="menu-backdrop" id="menuBackdrop" aria-label="Fermer le menu"></button>
+    </aside>
+
+    <!-- NAV TABLETTE (>=768px & <1024px) -->
+    <nav class="topbar topbar-tablet" aria-label="Navigation (tablette)">
+      <div class="tb-left">
+      </div>
+
+      <div class="tb-center">
+        <div class="links">
+          <a href="./playlists.html">• Playlists</a>
+          <a href="./defis.html">• Défis des capitaines</a>
+          <a href="https://kairos-4.gitbook.io/kairos" target="_blank" rel="noopener noreferrer">• Gitbook</a>
+          <a href="./galerie.html">• Galerie</a>
+        </div>
+      </div>
+
+      <div class="tb-right column">
+        <!-- Bloc utilisateur (connecté) -->
+        <div class="userbox auth-user" data-auth-only>
+          <img alt="Avatar" class="user-avatar js-userAvatar">
+          <div class="user-texts">
+            <span class="user-name js-userName"></span>
+            <span class="user-nick js-userNick"></span>
+          </div>
+        </div>
+
+        <!-- Connecté -->
+        <button class="btn btn-logout auth-user">Se déconnecter</button>
+      </div>
+    </nav>
+
+    <!-- NAV DESKTOP (>=1024px) -->
+    <nav class="topbar topbar-desktop" aria-label="Navigation (desktop)">
+      <div class="tb-left">
+        <!-- Invité -->
+        <a href="./admin.html" class="btn btn-admin auth-staff">Admin</a>
+      </div>
+
+      <div class="tb-center">
+        <div class="links">
+          <a href="./playlists.html">• Playlists</a>
+          <a href="./defis.html">• Défis des capitaines</a>
+          <a href="https://kairos-4.gitbook.io/kairos" target="_blank" rel="noopener noreferrer">• Gitbook</a>
+          <a href="./galerie.html">• Galerie</a>
+        </div>
+      </div>
+
+      <!-- à droite en colonne-->
+      <div class="tb-right column">
+        <!-- Bloc utilisateur (connecté) -->
+        <div class="userbox auth-user" data-auth-only>
+          <img alt="Avatar" class="user-avatar js-userAvatar">
+          <div class="user-texts">
+            <span class="user-name js-userName"></span>
+            <span class="user-nick js-userNick"></span>
+          </div>
+        </div>
+        <!-- Invité -->
+        <button class="btn btn-discord auth-guest">Se connecter avec Discord</button>
+        <!-- Connecté -->
+        <button class="btn btn-logout auth-user">Se déconnecter</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="login-wrap">
+      <h1>Staff login</h1>
+      <form id="staffLoginForm">
+        <label for="email">Email</label>
+        <input id="email" type="email" required />
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" required />
+        <button class="btn btn-staff" type="submit">Se connecter</button>
+        <div id="err"></div>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,43 @@
+.tabs{display:flex;gap:8px;margin:16px 0}
+.tabs button{padding:8px 12px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
+.tabs button[aria-selected="true"]{background:var(--light-green);color:var(--light-text)}
+.panel{display:none}
+.panel.active{display:block}
+.field{margin:10px 0}
+.field label{display:block;margin-bottom:6px;font-weight:600}
+.field input,.field textarea{width:100%;padding:10px;border-radius:8px;border:0}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.success{background:#d4f4d4;color:#083b08;padding:10px 12px;border-radius:8px;margin:10px 0}
+.error{background:#f3dede;color:#791c1c;padding:10px 12px;border-radius:8px;margin:10px 0}
+/* Admin: sous-texte du H1 (remplace l'inline du <small>) */
+.h1-sub{ opacity:.8; font-size:.7em; }
+
+/* Admin: avatar du panneau latéral (remplace width/height/radius/object-fit + display) */
+.side-menu .user-avatar{
+    width:48px; height:48px;
+    border-radius:9999px; object-fit:cover;
+}
+
+/* Admin: état d’affichage de l’avatar
+    - caché par défaut
+    - visible automatiquement quand le body possède .is-auth (géré par script.js)
+*/
+.js-userAvatar{ display:none; }
+body.is-auth .js-userAvatar{ display:block; }
+
+.admin-list .row{
+    display:flex; align-items: center; justify-content: space-between;
+    gap:12px; padding:10px 12px; border:1px solid var(--line,#ddd); border-radius:12px; margin:8px 0;
+}
+.admin-list .row .title{ font-weight:600; }
+.admin-list .row .meta{ opacity:.7; font-size:.9em; }
+.admin-list .row .actions button{ margin-left:8px; }
+
+.list { margin-top:14px; display:flex; flex-direction:column; gap:8px; }
+.list .row { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border:1px solid #e5e5e5; border-radius:8px; }
+.list .row .title { font-weight:600; }
+.list .row .meta { opacity:.7; font-size:.9em; margin-left:12px; flex:1; }
+.list .row .actions { display:flex; gap:8px; }
+.btn.btn-sm { padding:4px 8px; border-radius:6px; }
+.btn.btn-sm.danger { background:#ffebeb; color:#7a1c1c; }
+.muted { opacity:.6; }

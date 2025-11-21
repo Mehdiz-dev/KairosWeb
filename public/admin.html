@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Kairos — Admin</title>
+      <link rel="stylesheet" href="./styles.css" />
+      <link rel="stylesheet" href="./admin.css" />
+          
+      <!-- JS global (menu, auth Discord, logout, etc.) -->
+      <script type="module" src="./script.js" defer></script>
+      <!-- JS spécifique Admin -->
+      <script type="module" src="./admin.js" defer></script>
+  </head>
+
+
+  <body>
+    <button class="dots-btn" id="dotsBtn" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+
+      <!-- HEADER -->
+  <header class="site-header">
+    <a href="./index.html" aria-label="Accueil Kairos"><img src="../assets/logokairoscomplet.png" class="logo" alt="Kairos" /></a>
+    <img src="../assets/banniereapoattend.jpg" class="banner" alt="Bannière" />
+
+    <!-- Menu Burger-->
+    <aside class="side-menu" id="sideMenu" aria-hidden="true">
+      <div class="menu-content">
+        <div class="menu-header">
+          <img src="../assets/logokairospetit.png" alt="Kairos" class="menu-logo" />
+        </div>
+        <div class="userbox" data-auth-only>
+          <img class="user-avatar js-userAvatar" alt="Avatar">
+          <!-- Style au dessus à déplacer -->
+          <span class="user-name js-userName"></span>
+          <span class="user-nick js-userNick"></span>
+          <!-- Style au dessus à déplacer -->
+        </div>
+
+
+
+        <nav class="menu-links">
+          <a href="./playlists.html">• Playlists</a>
+          <a href="./defis.html">• Défis des capitaines</a>
+          <a href="#">• Statut serveur</a>
+          <a href="https://kairos-4.gitbook.io/kairos" target="_blank" rel="noopener noreferrer">• Gitbook</a>
+          <a href="./galerie.html">• Galerie</a>
+        </nav>
+
+        <!-- Connecté -->
+        <button class="btn btn-logout auth-user">Se déconnecter</button>
+      </div>
+      <button class="menu-backdrop" id="menuBackdrop" aria-label="Fermer le menu"></button>
+    </aside>
+
+    <!-- NAV TABLETTE (>=768px & <1024px) -->
+    <nav class="topbar topbar-tablet" aria-label="Navigation (tablette)">
+      <div class="tb-left">
+      </div>
+
+      <div class="tb-center">
+        <div class="links">
+          <a href="./playlists.html">• Playlists</a>
+          <a href="./defis.html">• Défis des capitaines</a>
+          <a href="https://kairos-4.gitbook.io/kairos" target="_blank" rel="noopener noreferrer">• Gitbook</a>
+          <a href="./galerie.html">• Galerie</a>
+        </div>
+      </div>
+
+      <div class="tb-right column">
+        <!-- Bloc utilisateur (connecté) -->
+        <div class="userbox auth-user" data-auth-only>
+          <img alt="Avatar" class="user-avatar js-userAvatar">
+          <div class="user-texts">
+            <span class="user-name js-userName"></span>
+            <span class="user-nick js-userNick"></span>
+          </div>
+        </div>
+
+        <!-- Connecté -->
+        <button class="btn btn-logout auth-user">Se déconnecter</button>
+      </div>
+    </nav>
+
+    <!-- NAV DESKTOP (>=1024px) -->
+    <nav class="topbar topbar-desktop" aria-label="Navigation (desktop)">
+      <div class="tb-left">
+        <!-- Invité -->
+        <a href="./admin.html" class="btn btn-admin auth-staff">Admin</a>
+      </div>
+
+      <div class="tb-center">
+        <div class="links">
+          <a href="./playlists.html">• Playlists</a>
+          <a href="./defis.html">• Défis des capitaines</a>
+          <a href="https://kairos-4.gitbook.io/kairos" target="_blank" rel="noopener noreferrer">• Gitbook</a>
+          <a href="./galerie.html">• Galerie</a>
+        </div>
+      </div>
+
+      <!-- à droite en colonne-->
+      <div class="tb-right column">
+        <!-- Bloc utilisateur (connecté) -->
+        <div class="userbox auth-user" data-auth-only>
+          <img alt="Avatar" class="user-avatar js-userAvatar">
+          <div class="user-texts">
+            <span class="user-name js-userName"></span>
+            <span class="user-nick js-userNick"></span>
+          </div>
+        </div>
+        <!-- Invité -->
+        <button class="btn btn-discord auth-guest">Se connecter avec Discord</button>
+        <!-- Connecté -->
+        <button class="btn btn-logout auth-user">Se déconnecter</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Admin <small class="h1-sub">— connecté: <span id="who"></span></small></h1>
+<!-- Style au dessus à déplacer -->
+    <div class="tabs">
+      <button data-tab="tab-posts" aria-selected="false">Actus</button>
+      <button data-tab="tab-challenges" aria-selected="false">Défis des capitaines</button>
+      <button data-tab="tab-gallery" aria-selected="false">Galerie</button>
+      <button data-tab="tab-users" class="superadmin-only" hidden>Utilisateurs</button>
+    </div>
+
+    <!-- POSTS -->
+    <section id="tab-posts" class="panel">
+      <form id="formPost">
+        <h3>Mes actus</h3>
+        <div id="postListMine" class="list"></div>
+        <h3 class="superadmin-only" hidden>Toutes les actus</h3>
+        <div id="postListAll" class="list" hidden></div>
+        <div class="field"><label>Titre</label><input name="title" required></div>
+        <div class="grid-2">
+          <div class="field"><label>Slug (optionnel)</label><input name="slug" placeholder="auto si vide"></div>
+          <div class="field"><label>Cover</label><input name="cover" type="file" accept="image/*"></div>
+        </div>
+        <div class="field"><label>Extrait</label><textarea name="excerpt" rows="2"></textarea></div>
+        <div class="field"><label>Contenu (Markdown ok)</label><textarea name="body_md" rows="8"></textarea></div>
+        <div class="field"><label><input type="checkbox" name="published"> Publier</label></div>
+        <button class="btn btn-staff" type="submit">Enregistrer</button>
+        <div id="postMsg"></div>
+      </form>
+    </section>
+
+    <!-- CHALLENGES -->
+    <section id="tab-challenges" class="panel">
+      <form id="formChallenge">
+        <h3>Mes défis</h3>
+        <div id="chalListMine" class="list"></div>
+        <h3 class="superadmin-only" hidden>Tous les défis</h3>
+        <div id="chalListAll" class="list" hidden></div>
+        <div class="field"><label>Titre</label><input name="title" required></div>
+        <div class="grid-2">
+          <div class="field"><label>Slug (optionnel)</label><input name="slug" placeholder="auto si vide"></div>
+          <div class="field"><label>Cover</label><input name="cover" type="file" accept="image/*"></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field"><label>Début</label><input name="starts_on" type="date"></div>
+          <div class="field"><label>Fin</label><input name="ends_on" type="date"></div>
+        </div>
+        <div class="field"><label>Résumé</label><textarea name="summary" rows="3"></textarea></div>
+        <div class="field"><label><input type="checkbox" name="published"> Publier</label></div>
+        <button class="btn btn-staff" type="submit">Enregistrer</button>
+        <div id="chalMsg"></div>
+      </form>
+    </section>
+
+    <!-- GALERIE -->
+    <section id="tab-gallery" class="panel">
+      <form id="formGallery">
+        <h3>Ma galerie</h3>
+        <div id="galListMine" class="list"></div>
+        <h3 class="superadmin-only" hidden>Toute la galerie</h3>
+        <div id="galListAll" class="list" hidden></div>
+        <div class="field"><label>Titre</label><input name="title"></div>
+        <div class="field"><label>Alt (accessibilité)</label><input name="alt" placeholder="description de l’image"></div>
+        <div class="field"><label>Image</label><input name="img" type="file" accept="image/*"></div>
+        <div class="field"><label><input type="checkbox" name="published" checked> Visible</label></div>
+        <button class="btn btn-staff" type="submit">Uploader</button>
+        <div id="galMsg"></div>
+      </form>
+    </section>
+
+    <!-- STAFF -->
+    <section id="tab-users" class="panel">
+  <h2>Gestion du Staff</h2>
+  <form id="fCreateStaff" class="field">
+    <div class="grid-2">
+      <div><label>Email</label><input name="email" type="email" required></div>
+      <div><label>Mot de passe</label><input name="password" type="password" required></div>
+    </div>
+    <div class="field"><label>Username</label><input name="username" required></div>
+    <button class="btn btn-staff" type="submit">Créer un compte staff</button>
+    <div id="userMsg"></div>
+  </form>
+
+  <form id="fDeleteStaff" class="field" style="margin-top:16px">
+    <label>Email du compte à supprimer</label>
+    <input name="email" type="email" placeholder="ex: staff@kairos.gg" required>
+    <button class="btn btn-staff" type="submit">Supprimer ce compte</button>
+    <div id="delMsg"></div>
+  </form>
+</section>
+
+  </main>
+</body>
+</html>

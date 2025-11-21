@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kairos — Playlists</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="module" src="./script.js" defer></script>
+</head>
+
+<body>
+  <button class="dots-btn" id="dotsBtn" aria-label="Ouvrir le menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <header class="site-header">
+    <a href="./index.html" aria-label="Accueil Kairos"><img src="../assets/logokairoscomplet.png" class="logo" alt="Kairos" /></a>
+    <img src="../assets/banniereapoattend.jpg" class="banner" alt="Bannière" />
+
+    <aside class="side-menu" id="sideMenu" aria-hidden="true">
+      <div class="menu-content">
+        <div class="menu-header">
+          <img src="../assets/logokairospetit.png" alt="Kairos" class="menu-logo" />
+        </div>
+        <div class="userbox" data-auth-only>
+          <img class="user-avatar js-userAvatar" alt="Avatar">
+          <span class="user-name js-userName"></span>
+          <span class="user-nick js-userNick"></span>
+        </div>
+        
+        <button class="btn btn-discord auth-guest">Se connecter avec Discord</button>
+        <a href="./admin.html" class="btn btn-admin auth-staff">Admin</a>
+
+
+        <nav class="menu-links">
+          <a href="./playlists.html">• Playlists</a>
+          <a href="./defis.html">• Défis des capitaines</a>
+          <a href="#">• Statut serveur</a>
+          <a href="https://kairos-4.gitbook.io/kairos" target="_blank" rel="noopener noreferrer">• Gitbook</a>
+          <a href="./galerie.html">• Galerie</a>
+        </nav>
+
+        <button class="btn btn-logout auth-user">Se déconnecter</button>
+      </div>
+      <button class="menu-backdrop" id="menuBackdrop" aria-label="Fermer le menu"></button>
+    </aside>
+
+    <!-- NAV TABLETTE (>=768px & <1200px) -->
+    <nav class="topbar topbar-tablet" aria-label="Navigation (tablette)">
+      <div class="tb-left">
+        <a href="./admin.html" class="btn btn-admin auth-staff">Admin</a>
+
+      </div>
+
+      <div class="tb-center">
+        <div class="links">
+          <a href="./playlists.html">• Playlists</a>
+          <a href="./defis.html">• Défis des capitaines</a>
+          <a href="https://kairos-4.gitbook.io/kairos" target="_blank" rel="noopener noreferrer">• Gitbook</a>
+          <a href="./galerie.html">• Galerie</a>
+        </div>
+      </div>
+
+      <div class="tb-right column">
+        <div class="userbox auth-user" data-auth-only>
+          <img alt="Avatar" class="user-avatar js-userAvatar">
+          <div class="user-texts">
+            <span class="user-name js-userName"></span>
+            <span class="user-nick js-userNick"></span>
+          </div>
+        </div>
+        <button class="btn btn-discord auth-guest">Se connecter avec Discord</button>
+        <button class="btn btn-logout auth-user">Se déconnecter</button>
+      </div>
+    </nav>
+
+    <!-- NAV DESKTOP (>=1024px) -->
+    <nav class="topbar topbar-desktop" aria-label="Navigation (desktop)">
+      <div class="tb-left">
+        <a href="./admin.html" class="btn btn-admin auth-staff">Admin</a>
+      </div>
+
+      <div class="tb-center">
+        <div class="links">
+          <a href="./playlists.html">• Playlists</a>
+          <a href="./defis.html">• Défis des capitaines</a>
+          <a href="https://kairos-4.gitbook.io/kairos" target="_blank" rel="noopener noreferrer">• Gitbook</a>
+          <a href="./galerie.html">• Galerie</a>
+        </div>
+      </div>
+
+      <div class="tb-right column">
+        <div class="userbox auth-user" data-auth-only>
+          <img alt="Avatar" class="user-avatar js-userAvatar">
+          <div class="user-texts">
+            <span class="user-name js-userName"></span>
+            <span class="user-nick js-userNick"></span>
+          </div>
+        </div>
+        <button class="btn btn-discord auth-guest">Se connecter avec Discord</button>
+        <button class="btn btn-logout auth-user">Se déconnecter</button>
+      </div>
+    </nav>
+  </header>
+    <main>
+    </main>
+
+  <footer class="site-footer">
+    <img src="../assets/footerkairosmobile.jpg" alt="" class="footer-bg" />
+    <div class="footer-content">
+      <ul class="footer-left">
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Wiki</a></li>
+        <li><a href="#">Qui sommes-nous ?</a></li>
+        <li><a href="./login.html">Espace Staff</a></li>
+      </ul>
+
+      <div class="footer-right">
+        <span class="footer-title">Réseaux</span>
+        <div class="socials">
+          <a href="https://kairos-4.gitbook.io/kairos" target="_blank" rel="noopener noreferrer" aria-label="Gitbook"><img src="../assets/gitbookkairos.png" class="icon" alt="Gitbook" /></a>
+          <a href="https://discord.gg/mFpFd9D5hF" target="_blank" rel="noopener noreferrer" aria-label="Discord"><img src="../assets/discordiconkairos.png" class="icon" alt="Discord" /></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
