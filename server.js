@@ -19,13 +19,14 @@ app.use(session({
   cookie: { sameSite: 'lax' }
 }));
 
-// Fichiers statiques (HTML, CSS, JS, images) (fix vercel)
+// --- Fichiers statiques du site
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Route pour la page d'accueil (fix vercel)
+// --- Page d'accueil
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
+
 
 // --- Static site (move your files into ./public)
 app.use(express.static('public'));
