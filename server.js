@@ -28,9 +28,6 @@ app.get('/', (req, res) => {
 });
 
 
-// --- Static site (move your files into ./public)
-app.use(express.static('public'));
-
 // --- Helpers
 const DISCORD_AUTH_BASE = 'https://discord.com/api/oauth2';
 const DISCORD_API_BASE  = 'https://discord.com/api';
