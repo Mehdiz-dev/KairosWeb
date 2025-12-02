@@ -103,6 +103,14 @@ app.get('/api/auth/status', (req, res) => {
   });
 });
 
-app.listen(3000, () =>
-  console.log('✅ Serveur sur http://localhost:3000')
-);
+// --- Lancement en local uniquement
+const port = process.env.PORT || 3000;
+
+if (process.env.VERCEL !== '1') {
+  app.listen(port, () =>
+    console.log(`✅ Serveur en local sur http://localhost:${port}`)
+  );
+}
+
+// --- Export pour Vercel
+export default app;
