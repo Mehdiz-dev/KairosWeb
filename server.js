@@ -2,9 +2,14 @@ import express from 'express';
 import session from 'express-session';
 import axios from 'axios';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // --- Sessions
 app.use(session({
@@ -13,6 +18,14 @@ app.use(session({
   saveUninitialized: false,
   cookie: { sameSite: 'lax' }
 }));
+
+// Fichiers statiques (HTML, CSS, JS, images) (fix vercel)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Route pour la page d'accueil (fix vercel)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // --- Static site (move your files into ./public)
 app.use(express.static('public'));
