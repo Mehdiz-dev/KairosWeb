@@ -260,7 +260,7 @@ async function fetchPostBySlug(slug) {
 function cardTemplate(post){
   const coverHTML = post.cover_url
     ? `<div class="card-img"><img src="${post.cover_url}" alt="${post.title}"></div>`
-    : `<div class="card-img"><img src="/assets/logokairoscomplet.png" alt="${post.title}"></div>`;
+    : `<div class="card-img"><img src="./assets/logokairoscomplet.png" alt="${post.title}"></div>`;
 
   const excerpt = makeExcerpt(post);
 
@@ -345,7 +345,7 @@ async function fetchChallenges(){
 function challengeCardTemplate(ch){
   const coverHTML = ch.cover_url
     ? `<div class="card-img"><img src="${ch.cover_url}" alt="${ch.title}"></div>`
-    : `<div class="card-img"><img src="/assets/logokairoscomplet.png" alt="${ch.title}"></div>`;
+    : `<div class="card-img"><img src="./assets/logokairoscomplet.png" alt="${ch.title}"></div>`;
 
 const dates = fmtRange(ch.starts_on, ch.ends_on);
 const meta  = dates || '';
