@@ -26,7 +26,7 @@ document.querySelectorAll('.btn-staff.auth-guest').forEach(btn=>{
   btn.addEventListener('click', () => { window.location.href = './login.html'; });
 });
 // --- Auth Discord Supabase ---
-import { supabase, SUPABASE_URL } from '../supabaseClient.js'; // ou './supabaseClient.js' si placé dans /public
+import { supabase, SUPABASE_URL } from './supabaseClient.js'; // ou './supabaseClient.js' si placé dans /public
 const $all = (sel) => Array.from(document.querySelectorAll(sel));
 
 // Connexion via Discord
