@@ -31,11 +31,19 @@ const $all = (sel) => Array.from(document.querySelectorAll(sel));
 
 // Connexion via Discord
 async function loginWithDiscord() {
+  // Local
+  const redirectTo =
+    window.location.hostname === '127.0.0.1' ||
+    window.location.hostname === 'localhost'
+      ? 'http://127.0.0.1:5500/public/'
+      // Vercel
+      : `${window.location.origin}/`;
+
   await supabase.auth.signInWithOAuth({
     provider: 'discord',
     options: {
       scopes: 'identify guilds',
-      redirectTo: 'http://127.0.0.1:5500/public/'
+      redirectTo
     }
   });
 }
