@@ -317,7 +317,7 @@ body.is-auth .js-userAvatar{ display:block; }
 
   /* Header fond (maquette tablette) */
   .site-header{
-    background-image:url('/assets/banniereapoattend.jpg');
+    background-image:url('./assets/banniereapoattend.jpg');
     background-size:cover; background-position:center;
     padding-bottom:10px;
   }
@@ -370,7 +370,7 @@ body.is-auth .js-userAvatar{ display:block; }
   /* Fond */
   body{
     background-color:var(--dark);
-    background-image:url('/assets/fonddesktop.png');
+    background-image:url('./assets/fonddesktop.png');
     background-position:center; background-size:cover;
     background-repeat:no-repeat; background-attachment:fixed;
   }
